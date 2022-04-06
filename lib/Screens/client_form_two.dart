@@ -9,25 +9,30 @@ import 'package:pb/Screens/client_form_one.dart';
 import 'package:pb/Screens/client_form_two.dart';
 import 'package:pb/Screens/client_form_three.dart';
 import 'package:pb/Screens/client_form_four.dart';
+import 'package:intl/intl.dart';
 
 class ClientFormTwo extends StatefulWidget {
   static const routeName = '/client-form-one';
   //const ClientFormTwo({Key? key, text}) : super(key: key);
 
   final String dropDownValueAccType;
+  final String dropDownValueTitle;
   final String firstNameController;
   final String lastNameController;
+  final String middleNameController;
   final String contactNumberController;
   final String dobController;
-  final String citizenshipController;
+  final String token;
 
   ClientFormTwo({
     required this.dropDownValueAccType,
+    required this.dropDownValueTitle,
     required this.firstNameController,
     required this.lastNameController,
     required this.contactNumberController,
     required this.dobController,
-    required this.citizenshipController,
+    required this.token,
+    required this.middleNameController,
   });
 
   @override
@@ -39,11 +44,13 @@ class _ClientFormTwoState extends State<ClientFormTwo> {
   final nationalIdController = TextEditingController();
   final nextOfKeenController = TextEditingController();
   final countryOfBirthController = TextEditingController();
+  final citizenshipController = TextEditingController();
   String? _dropDownValueMerritalStatus;
   String? _dropDownValueGender;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       resizeToAvoidBottomInset: false,
       body: Container(
         width: double.maxFinite,
@@ -53,34 +60,39 @@ class _ClientFormTwoState extends State<ClientFormTwo> {
                 image: AssetImage("assets/images/pic_2.png"),
                 fit: BoxFit.cover)),
         child: Card(
-          margin: EdgeInsets.all(30),
-          color: Colors.transparent,
+          margin: EdgeInsets.fromLTRB(10, 50, 10, 30),
+          color: Colors.white70,
           child: Container(
             width: double.maxFinite,
             height: double.maxFinite,
+            // color: Colors.amber,
             child: Padding(
               padding: EdgeInsets.only(left: 8, bottom: 23, right: 8, top: 5),
+
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SizedBox(
-                    height: 20,
+                  Expanded(
+                    child: Text('Demo', style: TextStyle(color: Colors.transparent),),
                   ),
+
                   Container(
                     width: 300,
+                    padding: EdgeInsets.only(left: 16, right: 16),
                     // color: Colors.grey,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
-                        color: Colors.grey),
+                        color: Colors.white70),
                     child: DropdownButton(
                       hint: _dropDownValueGender == null
                           ? Text('Gender')
                           : Text(
                               _dropDownValueGender!,
-                              style: TextStyle(color: Colors.black),
+                              style:  TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                       isExpanded: true,
                       iconSize: 30.0,
-                      style: TextStyle(color: Colors.green),
+                      style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
                       items: ['Male', 'Female'].map(
                         (val) {
                           return DropdownMenuItem<String>(
@@ -103,21 +115,22 @@ class _ClientFormTwoState extends State<ClientFormTwo> {
                   ),
                   Container(
                     width: 300,
+                    padding: EdgeInsets.only(left: 16, right: 16),
                     // color: Colors.grey,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
-                        color: Colors.grey),
+                        color: Colors.white70),
                     child: DropdownButton(
                       hint: _dropDownValueMerritalStatus == null
                           ? Text('Marrital status')
                           : Text(
                               _dropDownValueMerritalStatus!,
-                              style: TextStyle(color: Colors.black),
+                              style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                       isExpanded: true,
                       iconSize: 30.0,
-                      style: TextStyle(color: Colors.green),
-                      items: ['Married', 'Single', 'Devorced'].map(
+                      style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
+                      items: ['Married', 'Single', 'Divorced'].map(
                         (val) {
                           return DropdownMenuItem<String>(
                             value: val,
@@ -135,31 +148,52 @@ class _ClientFormTwoState extends State<ClientFormTwo> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  userInput(nationalIdController, 'National ID',
-                      TextInputType.text, Icons.verified_user),
-                  userInput(nextOfKeenController, 'Next of keen',
-                      TextInputType.text, Icons.verified_user),
+                  userInput(nationalIdController, 'National ID (1234567A89)',
+                      TextInputType.text, Icons.numbers_outlined),
+                  userInput(citizenshipController, 'citizenship',
+                      TextInputType.text, Icons.person),
                   userInput(countryOfBirthController, 'country of birth',
-                      TextInputType.text, Icons.verified_user),
+                      TextInputType.text, Icons.house_outlined),
+                  userInput(nextOfKeenController, 'Next of kin',
+                      TextInputType.text, Icons.child_care_outlined),
+
+
                   SizedBox(
                     height: 20,
                   ),
-                  AppText(
-                    text: 'Page 2 of 3',
-                    color: Colors.green,
+                  //
+                  // dropDownValueAccType,
+                  // dropDownValueTitle,
+                  // firstNameController,
+                  // lastNameController,
+                  // contactNumberController,
+                  // dobController,
+                  Center(
+                    child: AppText(
+                      text: 'Page 2 of 3',
+                      color: Colors.green,
+                    ),
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    child: Wrap(
-                      spacing: 130,
-                      children: [
-                        backButton(
-                            Colors.green, 'Sign In', Colors.white, context),
-                        toFormThreeButton(
-                            Colors.green, 'Sign In', Colors.white, context)
-                      ],
+
+
+                  Expanded(
+
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 5.0),
+                      child: Center(
+                        child: Wrap(
+                          spacing: 150,
+                          children: [
+                            backButton(
+                                Colors.green, 'Sign In', Colors.white, context),
+                            toFormThreeButton(
+                                Colors.green, 'Sign In', Colors.white, context)
+                          ],
+                        ),
+                      ),
                     ),
                   )
                 ],
@@ -234,15 +268,17 @@ class _ClientFormTwoState extends State<ClientFormTwo> {
                       dropDownValueAccType:
                           widget.dropDownValueAccType.toString(),
                       firstNameController: widget.firstNameController,
+                      middleNameController: widget.middleNameController,
                       lastNameController: widget.lastNameController,
                       contactNumberController: widget.contactNumberController,
                       dobController: widget.dobController.toString(),
-                      citizenshipController: widget.citizenshipController,
+                      citizenshipController: citizenshipController.text,
                       gender: _dropDownValueGender.toString(),
                       marritalStatus: _dropDownValueMerritalStatus.toString(),
                       nationalId: nationalIdController.text,
                       nextOfKeen: nextOfKeenController.text,
                       countryOfBirth: countryOfBirthController.text,
+                      token: widget.token,
                     ),
                   ));
             }

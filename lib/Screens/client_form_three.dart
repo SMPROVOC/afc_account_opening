@@ -16,6 +16,7 @@ class ClientFormThree extends StatefulWidget {
   final String dropDownValueAccType;
   final String firstNameController;
   final String lastNameController;
+  final String middleNameController;
   final String contactNumberController;
   final String dobController;
   final String citizenshipController;
@@ -24,6 +25,7 @@ class ClientFormThree extends StatefulWidget {
   final String nationalId;
   final String nextOfKeen;
   final String countryOfBirth;
+  final String token;
 
   ClientFormThree({
     required this.dropDownValueAccType,
@@ -37,6 +39,8 @@ class ClientFormThree extends StatefulWidget {
     required this.nationalId,
     required this.nextOfKeen,
     required this.countryOfBirth,
+    required this.token,
+    required this.middleNameController
   });
 
   @override
@@ -49,6 +53,8 @@ class _ClientFormThreeState extends State<ClientFormThree> {
   final cityController = TextEditingController();
   final grossIncomeController = TextEditingController();
   final emailController = TextEditingController();
+  final occupationController = TextEditingController();
+  final sourceOfIncomeController = TextEditingController();
 
   String? _dropDownValue;
   @override
@@ -63,18 +69,21 @@ class _ClientFormThreeState extends State<ClientFormThree> {
                 image: AssetImage("assets/images/pic_2.png"),
                 fit: BoxFit.cover)),
         child: Card(
-          margin: EdgeInsets.all(30),
-          color: Colors.transparent,
+          // margin: EdgeInsets.all(30),
+          margin: EdgeInsets.fromLTRB(10, 50, 10, 30),
+          color: Colors.white70,
           child: Container(
             width: double.maxFinite,
             height: double.maxFinite,
             child: Padding(
               padding: EdgeInsets.only(left: 8, bottom: 23, right: 8, top: 5),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SizedBox(
-                    height: 20,
+                  Expanded(
+                    child: Text('Demo', style: TextStyle(color: Colors.transparent),),
                   ),
+
                   Container(
                     width: 300,
                     // color: Colors.grey,
@@ -83,37 +92,50 @@ class _ClientFormThreeState extends State<ClientFormThree> {
                         color: Colors.grey),
                   ),
                   SizedBox(height: 20),
-                  userInput(houseNumberController, 'House number / Street',
-                      TextInputType.text, Icons.verified_user),
-                  userInput(addressLocationController, 'Address location',
-                      TextInputType.text, Icons.verified_user),
-                  userInput(cityController, 'City', TextInputType.text,
-                      Icons.verified_user),
+                  // userInput(houseNumberController, 'House number / Street',
+                  //     TextInputType.text, Icons.house_outlined),
+                  // userInput(addressLocationController, 'Address location',
+                  //     TextInputType.text, Icons.car_rental_outlined),
+                  // userInput(cityController, 'City', TextInputType.text,
+                  //     Icons.location_city),
+                  userInputMulti(addressLocationController, 'Address', TextInputType.multiline,
+                      Icons.location_city),
                   userInput(grossIncomeController, 'Gross income',
-                      TextInputType.text, Icons.verified_user),
-                  userInput(emailController, 'Email', TextInputType.text,
-                      Icons.verified_user),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  AppText(
-                    text: 'Page 2 of 3',
-                    color: Colors.green,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    child: Wrap(
-                      spacing: 130,
-                      children: [
-                        backButton(
-                            Colors.green, 'Sign In', Colors.white, context),
-                        toFormFourButton(
-                            Colors.green, 'Sign In', Colors.white, context)
-                      ],
+                      TextInputType.number, Icons.monetization_on_outlined),
+                  userInput(occupationController, 'Occupation', TextInputType.text,
+                      Icons.work_outline),
+                  userInput(sourceOfIncomeController, 'Source of income', TextInputType.text,
+                      Icons.work_outline),
+                  userInput(emailController, 'Description', TextInputType.text,
+                      Icons.email_outlined),
+                  // SizedBox(
+                  //   height: 10,
+                  // ),
+                  //
+                  // Center(
+                  //   child: AppText(
+                  //     text: 'Page 3 of 4',
+                  //     color: Colors.green,
+                  //   ),
+                  // ),
+
+                    Padding(
+                      padding: EdgeInsets.only(top: 15.0),
+                      child: Center(
+                        child: Wrap(
+                          spacing: 160,
+                          children: [
+                            backButton(
+                                Colors.green, 'Sign In', Colors.white, context),
+                            toFormFourButton(
+                                Colors.green, 'Sign In', Colors.white, context)
+                          ],
+                        ),
+                      ),
                     ),
-                  )
+                  Expanded(
+                    child: Text('Demo', style: TextStyle(color: Colors.transparent),),
+                  ),
                 ],
               ),
             ),
@@ -135,19 +157,19 @@ class _ClientFormThreeState extends State<ClientFormThree> {
         shape: CircleBorder(),
         color: buttonColor,
         onPressed: () {
-          if (houseNumberController.text.isEmpty) {
-            submitionError(context, 'Please fill in your house number');
-          } else if (addressLocationController.text.isEmpty) {
-            submitSuccessAlert(context, 'Please fill in your address loaction');
-          } else if (cityController.text.isEmpty) {
-            submitSuccessAlert(context, 'Please fill in your city');
+           if (addressLocationController.text.isEmpty) {
+            submitionError(context, 'Please fill in your address loaction');
+
           } else if (grossIncomeController.text.isEmpty) {
-            submitSuccessAlert(context, 'Please fill in your gross income');
+            submitionError(context, 'Please fill in your gross income');
+          } else if (sourceOfIncomeController.text.isEmpty) {
+            submitionError(context, 'Please fill in your source income');
           } else {
             Navigator.of(ctx).push(MaterialPageRoute(builder: (_) {
               return ClientFormFour(
                 dropDownValueAccType: widget.dropDownValueAccType.toString(),
                 firstNameController: widget.firstNameController,
+                  middleNameController: widget.middleNameController,
                 lastNameController: widget.lastNameController,
                 contactNumberController: widget.contactNumberController,
                 dobController: widget.dobController.toString(),
@@ -157,11 +179,14 @@ class _ClientFormThreeState extends State<ClientFormThree> {
                 nationalId: widget.nationalId,
                 nextOfKeen: widget.nextOfKeen,
                 countryOfBirth: widget.countryOfBirth,
-                houseNumber: houseNumberController.text,
+                //houseNumber: houseNumberController.text,
                 addressLocation: addressLocationController.text,
-                city: cityController.text,
+                //city: cityController.text,
                 grossIcome: grossIncomeController.text,
                 email: emailController.text,
+                occupation: occupationController.text,
+                sourceOfIncome: sourceOfIncomeController.text,
+                token: widget.token
 
                 //                       required this.marritalStatus,
                 // required this.nationalId,

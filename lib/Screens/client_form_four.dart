@@ -10,7 +10,6 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-
 import 'client_form_one.dart';
 
 class ClientFormFour extends StatefulWidget {
@@ -19,6 +18,7 @@ class ClientFormFour extends StatefulWidget {
 
   final String dropDownValueAccType;
   final String firstNameController;
+  final String middleNameController;
   final String lastNameController;
   final String contactNumberController;
   final String dobController;
@@ -28,11 +28,14 @@ class ClientFormFour extends StatefulWidget {
   final String nationalId;
   final String nextOfKeen;
   final String countryOfBirth;
-  final String houseNumber;
+  //final String houseNumber;
   final String addressLocation;
-  final String city;
+  //final String city;
   final String grossIcome;
   final String email;
+  final String occupation;
+  final String token;
+  final String sourceOfIncome;
 
   ClientFormFour({
     required this.dropDownValueAccType,
@@ -46,11 +49,15 @@ class ClientFormFour extends StatefulWidget {
     required this.nationalId,
     required this.nextOfKeen,
     required this.countryOfBirth,
-    required this.houseNumber,
+    //required this.houseNumber,
     required this.addressLocation,
-    required this.city,
+    //required this.city,
     required this.grossIcome,
     required this.email,
+    required this.occupation,
+    required this.token,
+    required this.middleNameController,
+    required this.sourceOfIncome,
   });
 
   @override
@@ -62,6 +69,8 @@ class _ClientFormFourState extends State<ClientFormFour> {
   PickedFile? _imageFileProfilePic;
   PickedFile? _imageFileAdditionalDoc;
   PickedFile? _imageFileScannedIdOrPassport;
+  PickedFile? _imageProofOfResidence;
+  PickedFile? _imageSignature;
   final _picker = ImagePicker();
   String? _dropDownValue;
   @override
@@ -76,15 +85,20 @@ class _ClientFormFourState extends State<ClientFormFour> {
                 image: AssetImage("assets/images/pic_2.png"),
                 fit: BoxFit.cover)),
         child: Card(
-          margin: EdgeInsets.all(30),
-          color: Colors.transparent,
+          // margin: EdgeInsets.all(30),
+          margin: EdgeInsets.fromLTRB(10, 50, 10, 30),
+          color: Colors.white70,
           child: Container(
             width: double.maxFinite,
             height: double.maxFinite,
             child: Padding(
               padding: EdgeInsets.only(left: 8, bottom: 23, right: 8, top: 5),
               child: Column(
+
                 children: [
+                  Expanded(
+                    child: Text('Demo', style: TextStyle(color: Colors.transparent),),
+                  ),
                   SizedBox(
                     height: 20,
                   ),
@@ -123,11 +137,11 @@ class _ClientFormFourState extends State<ClientFormFour> {
                                         AppText(
                                             text: "Profile",
                                             size: 16,
-                                            color: Colors.white),
+                                            color: Colors.black),
                                         AppText(
                                             text: "photo",
                                             size: 16,
-                                            color: Colors.white),
+                                            color: Colors.black),
                                       ],
                                     ),
                                   ),
@@ -163,11 +177,11 @@ class _ClientFormFourState extends State<ClientFormFour> {
                                         AppText(
                                             text: "Passport",
                                             size: 16,
-                                            color: Colors.white),
+                                            color: Colors.black),
                                         AppText(
                                             text: "or ID photo",
                                             size: 16,
-                                            color: Colors.white),
+                                            color: Colors.black),
                                       ],
                                     ),
                                   ),
@@ -180,33 +194,130 @@ class _ClientFormFourState extends State<ClientFormFour> {
                           flex: 3, // 20%
                           child: Container(
                             width: 50,
-                            height: 150,
-                            // color: Colors.black12,
+                            height: 200,
+                            // color: Colors.red,
                             child: InkWell(
                               onTap: () {
                                 showModalBottomSheet(
                                     context: context,
-                                    builder: (builder) => bottomSheet3());
+                                    builder: (builder) => bottomSheet5());
                               },
                               child: Row(
                                 children: [
                                   Container(
                                     child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
-                                        iconPic3(),
+                                        iconPic5(),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        AppText(
+                                            text: "Upload proof",
+                                            size: 16,
+                                            color: Colors.black),
+                                        AppText(
+                                            text: "of residence",
+                                            size: 16,
+                                            color: Colors.black),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+
+                      ],
+
+                    ),
+
+                  ),
+
+
+                  Container(
+                    width: double.maxFinite,
+                    height: 200,
+                    // color: Colors.amberAccent,
+                    child: Row(
+                      children: [
+                        Expanded(
+                            flex: 1, // 20%
+                            child: Container()),
+
+                        Expanded(
+                          flex: 3, // 20%
+                          child: Container(
+                            width: 50,
+                            height: 200,
+                            // color: Colors.grey,
+                            child: InkWell(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (builder) => bottomSheet6());
+                              },
+                              child: Row(
+                                children: [
+                                  Container(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .center, //Center Column contents vertically,
+                                      //Center Column contents horizontally,
+                                      children: [
+                                        iconPic6(),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        AppText(
+                                            text: "Upload",
+                                            size: 16,
+                                            color: Colors.black),
+                                        AppText(
+                                            text: "signature",
+                                            size: 16,
+                                            color: Colors.black),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3, // 20%
+                          child: Container(
+                            width: 50,
+                            height: 200,
+                            // color: Colors.red,
+                            child: InkWell(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (builder) => bottomSheet7());
+                              },
+                              child: Row(
+                                children: [
+                                  Container(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      children: [
+                                        iconPic7(),
                                         SizedBox(
                                           width: 20,
                                         ),
                                         AppText(
                                             text: "Additional",
                                             size: 16,
-                                            color: Colors.white),
+                                            color: Colors.black),
                                         AppText(
                                             text: "files",
                                             size: 16,
-                                            color: Colors.white),
+                                            color: Colors.black),
                                       ],
                                     ),
                                   ),
@@ -218,9 +329,10 @@ class _ClientFormFourState extends State<ClientFormFour> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+
+
+
+
                   AppText(
                     text: 'Page 4 of 4',
                     color: Colors.green,
@@ -228,17 +340,23 @@ class _ClientFormFourState extends State<ClientFormFour> {
                   SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    child: Wrap(
-                      spacing: 130,
-                      children: [
-                        backButton(
-                            Colors.green, 'Sign In', Colors.white, context),
-                        sendInfoButton(
-                            Colors.green, 'Sign In', Colors.white, context)
-                      ],
+
+                    Padding(
+                      padding: EdgeInsets.only(top: 1.0),
+                      child: Wrap(
+                        spacing: 130,
+                        children: [
+                          backButton(
+                              Colors.green, 'Sign In', Colors.white, context),
+                          sendInfoButton(
+                              Colors.green, 'Sign In', Colors.white, context),
+                        ],
+                      ),
                     ),
-                  )
+
+                  Expanded(
+                    child: Text('Demo', style: TextStyle(color: Colors.transparent),),
+                  ),
                 ],
               ),
             ),
@@ -268,7 +386,7 @@ class _ClientFormFourState extends State<ClientFormFour> {
         Positioned(
             bottom: 10.0,
             right: 8.0,
-            child: Icon(Icons.camera_alt, color: Colors.teal, size: 28.0)),
+            child: Icon(Icons.camera_alt, color: Colors.amber, size: 28.0)),
       ],
     );
   }
@@ -294,7 +412,7 @@ class _ClientFormFourState extends State<ClientFormFour> {
         Positioned(
             bottom: 10.0,
             right: 8.0,
-            child: Icon(Icons.camera_alt, color: Colors.teal, size: 28.0)),
+            child: Icon(Icons.camera_alt, color: Colors.amber, size: 28.0)),
       ],
     );
   }
@@ -312,7 +430,7 @@ class _ClientFormFourState extends State<ClientFormFour> {
     return Stack(
       children: <Widget>[
         CircleAvatar(
-          radius: 30.0,
+          radius: 40.0,
           backgroundImage: _imageFileAdditionalDoc == null
               ? AssetImage("assets/images/pic_1.png") as ImageProvider
               : FileImage(File(_imageFileAdditionalDoc!.path)),
@@ -320,11 +438,91 @@ class _ClientFormFourState extends State<ClientFormFour> {
         Positioned(
             bottom: 10.0,
             right: 8.0,
-            child: Icon(Icons.camera_alt, color: Colors.amber, size: 18.0)),
+            child: Icon(Icons.camera_alt, color: Colors.amber, size: 28.0)),
       ],
     );
   }
 //############################################################################
+
+  //################### For additional documents ##########################
+  void takePhoto5(ImageSource source) async {
+    final pickedFile = await _picker.getImage(source: source);
+    setState(() {
+      _imageProofOfResidence = pickedFile!;
+    });
+  }
+
+  Widget iconPic5() {
+    return Stack(
+      children: <Widget>[
+        CircleAvatar(
+          radius: 40.0,
+          backgroundImage: _imageProofOfResidence == null
+              ? AssetImage("assets/images/pic_1.png") as ImageProvider
+              : FileImage(File(_imageProofOfResidence!.path)),
+        ),
+        Positioned(
+            bottom: 10.0,
+            right: 8.0,
+            child: Icon(Icons.camera_alt, color: Colors.amber, size: 28.0)),
+      ],
+    );
+  }
+//############################################################################
+
+
+  //################### For additional documents ##########################
+  void takePhoto6(ImageSource source) async {
+    final pickedFile = await _picker.getImage(source: source);
+    setState(() {
+      _imageSignature = pickedFile!;
+    });
+  }
+
+  Widget iconPic6() {
+    return Stack(
+      children: <Widget>[
+        CircleAvatar(
+          radius: 40.0,
+          backgroundImage: _imageSignature == null
+              ? AssetImage("assets/images/pic_1.png") as ImageProvider
+              : FileImage(File(_imageSignature!.path)),
+        ),
+        Positioned(
+            bottom: 10.0,
+            right: 8.0,
+            child: Icon(Icons.camera_alt, color: Colors.amber, size: 28.0)),
+      ],
+    );
+  }
+//############################################################################
+
+  //################### For additional documents ##########################
+  void takePhoto7(ImageSource source) async {
+    final pickedFile = await _picker.getImage(source: source);
+    setState(() {
+      _imageFileAdditionalDoc = pickedFile!;
+    });
+  }
+
+  Widget iconPic7() {
+    return Stack(
+      children: <Widget>[
+        CircleAvatar(
+          radius: 40.0,
+          backgroundImage: _imageFileAdditionalDoc == null
+              ? AssetImage("assets/images/pic_1.png") as ImageProvider
+              : FileImage(File(_imageFileAdditionalDoc!.path)),
+        ),
+        Positioned(
+            bottom: 10.0,
+            right: 8.0,
+            child: Icon(Icons.camera_alt, color: Colors.amber, size: 28.0)),
+      ],
+    );
+  }
+//############################################################################
+
 
 //################### bottomSheet for take photo #############
 
@@ -352,13 +550,13 @@ class _ClientFormFourState extends State<ClientFormFour> {
                 takePhoto(ImageSource.camera);
               },
             ),
-            FlatButton.icon(
-              icon: Icon(Icons.image),
-              label: Text("Gallary"),
-              onPressed: () {
-                takePhoto(ImageSource.gallery);
-              },
-            ),
+            // FlatButton.icon(
+            //   icon: Icon(Icons.image),
+            //   label: Text("Gallary"),
+            //   onPressed: () {
+            //     takePhoto(ImageSource.gallery);
+            //   },
+            // ),
           ],
         )
       ]),
@@ -392,13 +590,13 @@ class _ClientFormFourState extends State<ClientFormFour> {
                 takePhoto2(ImageSource.camera);
               },
             ),
-            FlatButton.icon(
-              icon: Icon(Icons.image),
-              label: Text("Gallary"),
-              onPressed: () {
-                takePhoto2(ImageSource.gallery);
-              },
-            ),
+            // FlatButton.icon(
+            //   icon: Icon(Icons.image),
+            //   label: Text("Gallary"),
+            //   onPressed: () {
+            //     takePhoto2(ImageSource.gallery);
+            //   },
+            // ),
           ],
         )
       ]),
@@ -432,13 +630,135 @@ class _ClientFormFourState extends State<ClientFormFour> {
                 takePhoto3(ImageSource.camera);
               },
             ),
+            // FlatButton.icon(
+            //   icon: Icon(Icons.image),
+            //   label: Text("Gallary"),
+            //   onPressed: () {
+            //     takePhoto3(ImageSource.gallery);
+            //   },
+            // ),
+          ],
+        )
+      ]),
+    );
+  }
+//###############################################################
+
+
+  //################### bottomSheet for take photo #############
+
+  Widget bottomSheet5() {
+    return Container(
+      width: 200,
+      height: 100,
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: Column(children: <Widget>[
+        Text(
+          "Upload proof of residence",
+          style: TextStyle(
+            fontSize: 20.0,
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Row(
+          children: <Widget>[
             FlatButton.icon(
-              icon: Icon(Icons.image),
-              label: Text("Gallary"),
+              icon: Icon(Icons.camera),
+              label: Text("Camera"),
               onPressed: () {
-                takePhoto3(ImageSource.gallery);
+                takePhoto5(ImageSource.camera);
               },
             ),
+            // FlatButton.icon(
+            //   icon: Icon(Icons.image),
+            //   label: Text("Gallary"),
+            //   onPressed: () {
+            //     takePhoto3(ImageSource.gallery);
+            //   },
+            // ),
+          ],
+        )
+      ]),
+    );
+  }
+//###############################################################
+
+  //################### bottomSheet for take photo #############
+
+  Widget bottomSheet6() {
+    return Container(
+      width: 200,
+      height: 100,
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: Column(children: <Widget>[
+        Text(
+          "Upload your signature",
+          style: TextStyle(
+            fontSize: 20.0,
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Row(
+          children: <Widget>[
+            FlatButton.icon(
+              icon: Icon(Icons.camera),
+              label: Text("Camera"),
+              onPressed: () {
+                takePhoto6(ImageSource.camera);
+              },
+            ),
+            // FlatButton.icon(
+            //   icon: Icon(Icons.image),
+            //   label: Text("Gallary"),
+            //   onPressed: () {
+            //     takePhoto3(ImageSource.gallery);
+            //   },
+            // ),
+          ],
+        )
+      ]),
+    );
+  }
+//###############################################################
+
+
+  //################### bottomSheet for take photo #############
+
+  Widget bottomSheet7() {
+    return Container(
+      width: 200,
+      height: 100,
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: Column(children: <Widget>[
+        Text(
+          "Upload your additional files",
+          style: TextStyle(
+            fontSize: 20.0,
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Row(
+          children: <Widget>[
+            FlatButton.icon(
+              icon: Icon(Icons.camera),
+              label: Text("Camera"),
+              onPressed: () {
+                takePhoto7(ImageSource.camera);
+              },
+            ),
+            // FlatButton.icon(
+            //   icon: Icon(Icons.image),
+            //   label: Text("Gallary"),
+            //   onPressed: () {
+            //     takePhoto3(ImageSource.gallery);
+            //   },
+            // ),
           ],
         )
       ]),
@@ -448,17 +768,16 @@ class _ClientFormFourState extends State<ClientFormFour> {
 
 
 
+  submitCustomerData(String title, String first_name, String middle_name, String last_name, String gender, String marital_status, String full_address, var date_of_birth,
+      String msisdn, String country_of_birth, var citizenship, String ocupation, String gross_income, String sourceOfIncome, String contact_person, String legal,
+      String description, var proPicPath, var scannedDocPath, var proofOfResidencePath, var signaturePath, var additionalDocPath, String token) async {
+    try {
 
-
-  submitCustomerData(String first_name, String last_name, String gender, String marital_status, String full_address, var date_of_birth,
-      String msisdn, String country_of_birth, var citizenship, String ocupation, String gross_income, String contact_person, String legal,
-      String description, var proPicPath, var scannedDocPath, var additionalDocPath) async {
-
-    var postUri = Uri.parse("http://192.168.0.41:9999/api/customers");
+    //var postUri = Uri.parse("http://192.168.0.41:9999/api/customers");
+    var postUri = Uri.parse("https://payments.agribank.co.zw/api/customers");
 //var filePath = "images/original.png";
 
-    String gen = "Null"; // for gender
-    String maritalStatus = "Null"; // for marital status
+    //String gen = "Null"; // for gender
 
     // if (gender == 3){
     //   gen = "male";
@@ -477,6 +796,10 @@ class _ClientFormFourState extends State<ClientFormFour> {
     //   maritalStatus = "Null";
     // }
 
+      if (middle_name.isEmpty){
+        middle_name = "";
+      }
+
     DateFormat dateFormat = DateFormat("yyyy-MM-dd");
 
     //String dt = dateFormat.format(date_of_birth);
@@ -486,10 +809,15 @@ class _ClientFormFourState extends State<ClientFormFour> {
     http.MultipartRequest request = new http.MultipartRequest("POST", postUri);
 
     request.headers['Accept'] = 'application/json';
+    request.headers['Authorization'] = 'Bearer ' + token;
 
-    request.fields["first_name"] = first_name;
+
+    request.fields["title"] = title;
+    request.fields["first_name"] = first_name + " " + middle_name;
+    //request.fields["middle_name"] = middle_name;
+      request.fields["source_of_funds"] = sourceOfIncome;
     request.fields["last_name"] = last_name;
-    request.fields["gender"] = gen;
+    request.fields["gender"] = gender;
     request.fields["marital_status"] = marital_status;
     request.fields["full_address"] = full_address;
     request.fields["date_of_birth"] = date_of_birth;
@@ -501,6 +829,7 @@ class _ClientFormFourState extends State<ClientFormFour> {
     request.fields["contact_person"] = contact_person;
     request.fields["legal"] = legal;
     request.fields["description"] = description;
+    request.fields["branch_code"] = 'ZW000040';
 
     request.files.addAll([
       http.MultipartFile.fromBytes(
@@ -513,14 +842,27 @@ class _ClientFormFourState extends State<ClientFormFour> {
         File(scannedDocPath).readAsBytesSync(),
         filename: scannedDocPath,
       ),
+
       http.MultipartFile.fromBytes(
-        'aditional_documents',
-        File(additionalDocPath).readAsBytesSync(),
-        filename: additionalDocPath,
+        'proof_of_residence',
+        File(proofOfResidencePath).readAsBytesSync(),
+        filename: proofOfResidencePath,
       ),
+      http.MultipartFile.fromBytes(
+        'signature',
+        File(signaturePath).readAsBytesSync(),
+        filename: signaturePath,
+      ),
+      // http.MultipartFile.fromBytes(
+      //   'additional_document',
+      //   File(additionalDocPath).readAsBytesSync(),
+      //   filename: additionalDocPath,
+      // ),
     ]);
 
-    var streamedResponse = await request.send();
+
+
+    var streamedResponse = await request.send().timeout(const Duration(seconds: 25));
 
     var response = await http.Response.fromStream(streamedResponse);
 
@@ -537,24 +879,24 @@ class _ClientFormFourState extends State<ClientFormFour> {
 
 
     var res = responseData['message'];
-    // var res = 'ok';
+     // var res = 'ok';
 
 
 
     String country_code= msisdn.substring(0,3);
 
-    msisdn = '263777777777';
-    gender = "male";
-    maritalStatus = 'Single';
-    print(msisdn.length);
+    // msisdn = '263777777777';
+    // gender = "male";
+    // maritalStatus = 'Single';
+    // print(msisdn.length);
 
     if (first_name.isEmpty){
       res = "null";
     }else if(last_name.isEmpty) {
       res = "null";
-    }else if(gender == 1) {
+    }else if(gender.isEmpty) {
       res = "null";
-    }else if(marital_status == 1){
+    }else if(marital_status.isEmpty){
       res = "null";
     }else if(full_address.isEmpty){
       res = "null";
@@ -580,7 +922,9 @@ class _ClientFormFourState extends State<ClientFormFour> {
       res = "null";
     }else if(scannedDocPath == null){
       res = "null";
-    }else if(additionalDocPath == null){
+    }else if(proofOfResidencePath == null){
+      res = "null";
+    }else if(signaturePath == null){
       res = "null";
     }else if(country_code != "263") {
       submitionError(
@@ -598,15 +942,11 @@ class _ClientFormFourState extends State<ClientFormFour> {
     int contact_number = int.parse(msisdn);
     int income = int.parse(gross_income);
 
-
-
-
-
-
+    // print(title);
     // print(first_name);
     // print(last_name);
-    // print(gen);
-    // print(maritalStatus);
+    // print(gender);
+    // print(marital_status);
     // print(full_address);
     // print(date_of_birth);
     // print(contact_number);
@@ -623,9 +963,24 @@ class _ClientFormFourState extends State<ClientFormFour> {
 
 
 
-    if (res == "Successfully Posted") {
-      submitSuccessAlert(context,
-          "Information is successfully sumbitted!");
+    if (res == "Successfully Posted") { // Successfully Posted
+
+      setState(() {
+        isLoading = false;
+        submitSuccessAlert(context,
+            "Information is successfully sumbitted!", token);
+        isLoading = false;
+        // Timer(Duration(seconds: 3), () {
+        //   Navigator.pushAndRemoveUntil(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => ClientFormOne(token: token,)
+        //     ),
+        //         (route) => false,
+        //   );
+        // });
+
+      });
 
       // firstNameController.clear();
       // lastNameController.clear();
@@ -648,8 +1003,28 @@ class _ClientFormFourState extends State<ClientFormFour> {
 
     }else if (res == "Failed to Upload Customer KYC Details, Possible Duplicate"){
       submitionError(context, 'Possible Duplication of record in system. Verify if this record does not already exist with AFC.');
+      setState(() {
+        isLoading = false;
+      });
+
     }else{
       submitionError(context, res);
+      setState(() {
+        isLoading = false;
+      });
+    }
+
+
+    } on Exception catch (exception) {
+    submitionError(context, "Information could not be submitted. Please check your network connection!");
+    setState(() {
+      isLoading = false;
+    });
+    } catch (error) {
+    submitionError(context, "Information could not be submitted. Please check your network connection!");
+    setState(() {
+      isLoading = false;
+    });
     }
 
   }
@@ -672,18 +1047,48 @@ class _ClientFormFourState extends State<ClientFormFour> {
           });
 
 
-          String addr = widget.houseNumber + " " + widget.addressLocation + " " + widget.city;
+          //String addr = widget.houseNumber + " " + widget.addressLocation + " " + widget.city;
 
+          if (_imageFileProfilePic == null){
 
-          submitCustomerData(widget.firstNameController, widget.lastNameController, widget.gender, widget.marritalStatus, addr, widget.dobController,
-              widget.contactNumberController, widget.countryOfBirth, widget.citizenshipController, "my occupation", widget.grossIcome,
+              submitionError(context, 'You must provide your Profile photo');
+              setState(() {
+              isLoading = false;
+              });
+
+            }else if (_imageFileScannedIdOrPassport == null){
+            submitionError(context, 'You must provide your passport or national ID photo');
+            setState(() {
+              isLoading = false;
+            });
+
+          }else if (_imageProofOfResidence == null){
+            submitionError(context, 'You must provide your proof of residence.');
+            setState(() {
+              isLoading = false;
+            });
+
+          }else if (_imageSignature == null){
+            submitionError(context, 'You must provide your signature');
+            setState(() {
+              isLoading = false;
+            });
+
+          }else{
+
+            if (_imageFileAdditionalDoc == null){
+              _imageFileAdditionalDoc = _imageFileScannedIdOrPassport;
+            }
+
+          submitCustomerData(widget.dropDownValueAccType ,widget.firstNameController, widget.middleNameController,widget.lastNameController, widget.gender, widget.marritalStatus, widget.addressLocation, widget.dobController,
+              widget.contactNumberController, widget.countryOfBirth, widget.citizenshipController, widget.occupation, widget.grossIcome, widget.sourceOfIncome,
               widget.nextOfKeen, widget.nationalId, widget.email, _imageFileProfilePic!.path.toString(),
-              _imageFileScannedIdOrPassport!.path.toString(), _imageFileAdditionalDoc!.path).toString();
+              _imageFileScannedIdOrPassport!.path.toString(), _imageProofOfResidence!.path.toString(), _imageSignature!.path.toString(),_imageFileAdditionalDoc!.path.toString(),  widget.token);
 
-
-          Navigator.of(ctx).push(MaterialPageRoute(builder: (_) {
-            return ClientFormOne();
-          }));
+    }
+          // Navigator.of(ctx).push(MaterialPageRoute(builder: (_) {
+          //   return ClientFormOne();
+          // }));
 
         },
         child: isLoading

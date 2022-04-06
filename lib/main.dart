@@ -6,6 +6,7 @@ import './Screens/client_form_four.dart';
 import './Screens/client_form_three.dart';
 import './Screens/client_form_two.dart';
 import './Screens/client_form_one.dart';
+import './Screens/landing_screen.dart';
 import 'package:flutter/services.dart';
 
 void main() {
@@ -27,12 +28,14 @@ class MyApp extends StatelessWidget {
       // title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'Roboto',
       ),
       home: WelcomeScreen(),
       routes: {
         WelcomeScreen.routeName: (context) => WelcomeScreen(),
-        ClientScreenOne.routeName: (context) => ClientScreenOne(),
-        ClientFormOne.routeName: (context) => ClientFormOne(),
+        // ClientScreenOne.routeName: (context) => ClientScreenOne(),
+        // ClientFormOne.routeName: (context) => ClientFormOne(),
+        // LandingScreen.routeName: (context) => LandingScreen(),
         //ClientFormTwo.routeName: (context) => ClientFormTwo(),
         //ClientFormThree.routeName: (context) => ClientFormThree(),
         //ClientFormFour.routeName: (context) => ClientFormFour(),

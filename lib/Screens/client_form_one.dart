@@ -8,10 +8,18 @@ import 'package:pb/Screens/client_form_one.dart';
 import 'package:pb/Screens/client_form_two.dart';
 import 'package:pb/Screens/client_form_three.dart';
 import 'package:pb/Screens/client_form_four.dart';
+import 'package:intl/intl.dart';
 
 class ClientFormOne extends StatefulWidget {
   static const routeName = '/client-form-one';
-  const ClientFormOne({Key? key}) : super(key: key);
+  //const ClientFormOne({Key? key}) : super(key: key);
+
+  final String token;
+
+  ClientFormOne({
+    required this.token,
+
+  });
 
   @override
   State<ClientFormOne> createState() => _ClientFormOneState();
@@ -21,12 +29,16 @@ class _ClientFormOneState extends State<ClientFormOne> {
   final accountTypeController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
+  final middleNamesController = TextEditingController();
   final contactNumberController = TextEditingController();
   final dobController = TextEditingController();
-  final citizenshipController = TextEditingController();
   DateTime date = DateTime(2005, 01, 01);
   String? _dropDownValueAccType;
+  String? _dropDownValueTitle;
   late DateTime? _dobController;
+  String? dk;
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,35 +52,41 @@ class _ClientFormOneState extends State<ClientFormOne> {
                 image: AssetImage("assets/images/pic_2.png"),
                 fit: BoxFit.cover)),
         child: Card(
-          margin: EdgeInsets.all(30),
-          color: Colors.transparent,
+
+          //margin: EdgeInsets.all(30),
+          margin: EdgeInsets.fromLTRB(10, 50, 10, 30),
+          color: Colors.white70,
           child: Container(
             width: double.maxFinite,
             height: double.maxFinite,
             child: Padding(
               padding: EdgeInsets.only(left: 8, bottom: 23, right: 8, top: 5),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SizedBox(
-                    height: 20,
+                  Expanded(
+                    child: Text('Demo', style: TextStyle(color: Colors.transparent),),
                   ),
+
                   Container(
                     width: 300,
+                    padding: EdgeInsets.only(left: 16, right: 16),
                     // color: Colors.grey,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         color: Colors.white54),
                     child: DropdownButton(
                       hint: _dropDownValueAccType == null
-                          ? Text('Account Type')
+                          ? Text('Account Type', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
                           : Text(
                               _dropDownValueAccType!,
-                              style: TextStyle(color: Colors.black),
+                              style: TextStyle(color: Colors.black, fontSize: 18,),
                             ),
+
                       isExpanded: true,
                       iconSize: 30.0,
-                      style: TextStyle(color: Colors.green),
-                      items: ['Zimbabwean', 'South African', 'Other'].map(
+                      style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
+                      items: ['Flexi-Cash account'].map(
                         (val) {
                           return DropdownMenuItem<String>(
                             value: val,
@@ -85,16 +103,56 @@ class _ClientFormOneState extends State<ClientFormOne> {
                       },
                     ),
                   ),
-                  SizedBox(height: 20),
-                  userInput(firstNameController, 'First name',
-                      TextInputType.text, Icons.verified_user),
-                  userInput(lastNameController, 'Last name', TextInputType.text,
-                      Icons.verified_user),
-                  userInput(contactNumberController, 'Contact number',
-                      TextInputType.text, Icons.verified_user),
-                  Text(
-                    '${date.year}/${date.month}/${date.year}',
+
+                  SizedBox(height: 20,),
+
+                  Container(
+                    width: 300,
+                    padding: EdgeInsets.only(left: 16, right: 16),
+                    // color: Colors.grey,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        color: Colors.white70),
+                    child: DropdownButton(
+                      hint: _dropDownValueTitle == null
+                          ? Text('Title', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
+                          : Text(
+                        _dropDownValueTitle!,
+                        style: TextStyle(color: Colors.black, fontSize: 18,),
+                      ),
+
+                      isExpanded: true,
+                      iconSize: 30.0,
+                      style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
+                      items: ['Mr', 'Mrs', 'Ms', 'Dr', 'Prof'].map(
+                            (val) {
+                          return DropdownMenuItem<String>(
+                            value: val,
+                            child: Text(val),
+                          );
+                        },
+                      ).toList(),
+                      onChanged: (val) {
+                        setState(
+                              () {
+                            _dropDownValueTitle = val as String?;
+                          },
+                        );
+                      },
+                    ),
                   ),
+                  SizedBox(height: 20),
+
+                  userInput(lastNameController, 'Last name (Mukodzi)', TextInputType.text,
+                      Icons.supervised_user_circle),
+                  userInput(middleNamesController, 'Middle names (Optional)', TextInputType.text,
+                      Icons.supervised_user_circle),
+                  userInput(firstNameController, 'First name (Kudzai)',
+                      TextInputType.text, Icons.supervised_user_circle),
+
+                  userInput(contactNumberController, 'Contact number (263***)',
+                      TextInputType.number, Icons.call),
+
                   ElevatedButton(
                     onPressed: () async {
                       DateTime? newDate = await showDatePicker(
@@ -109,42 +167,59 @@ class _ClientFormOneState extends State<ClientFormOne> {
 
                       setState(() => date = newDate);
 
-                      setState(() => _dobController = newDate);
+                      setState(() => _dobController =  newDate);
+                      // setState(() => dk = formatter.format(newDate).toString());
+                      setState(() => dk = "${newDate.year}-${newDate.month}-${newDate.day}");
                     },
-                    child: Text('Select date of birth'),
+                    child: Text(dk == null ? 'Select date of birth' : dk.toString(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                     style: ElevatedButton.styleFrom(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 85, vertical: 16),
-                      primary: Colors.white54,
+                          EdgeInsets.symmetric(horizontal: 45, vertical: 16),
+
+                      primary: Colors.white70,
                       onPrimary: Colors.black,
                     ),
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  userInput(citizenshipController, 'Citizenship',
-                      TextInputType.text, Icons.verified_user),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  AppText(
-                    text: 'Page 1 of 4',
-                    color: Colors.green,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  // userInput(citizenshipController, 'Citizenship',
+                  //     TextInputType.text, Icons.verified_user),
+                  // SizedBox(
+                  //   height: 20,
+                  // ),
+                  // Center(
+                  //   child: AppText(
+                  //     text: 'Page 1 of 4',
+                  //     color: Colors.green,
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: 20,
+                  // ),
                   Container(
-                    child: Wrap(
-                      spacing: 130,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        backButton(
-                            Colors.green, 'Sign In', Colors.white, context),
-                        toFormTwoButton(
-                            Colors.green, 'Sign In', Colors.white, context)
+                        Center(
+                          child: Wrap(
+                            spacing: 160,
+                            children: [
+                              toRequirementsButton(
+                                  Colors.green, 'Sign In', Colors.white, context, widget.token),
+                              toFormTwoButton(
+                                  Colors.green, 'Sign In', Colors.white, context)
+                            ],
+                          ),
+                        ),
                       ],
                     ),
-                  )
+                  ),
+                  Expanded(
+                    child: Text('Demo', style: TextStyle(color: Colors.transparent),),
+                  ),
                 ],
               ),
             ),
@@ -176,8 +251,8 @@ class _ClientFormOneState extends State<ClientFormOne> {
             submitionError(context, "Please input your surname!!");
           } else if (contactNumberController.text.isEmpty) {
             submitionError(context, "Please input your contact number!!");
-          } else if (citizenshipController.text.isEmpty) {
-            submitionError(context, "Please input your citizenship!!");
+          } else if (_dropDownValueTitle == null) {
+            submitionError(context, "Please select your title!!");
           } else if (_dropDownValueAccType == null) {
             submitionError(context, "Please choose an account type");
           } else if (_dobController == null) {
@@ -185,19 +260,24 @@ class _ClientFormOneState extends State<ClientFormOne> {
           }else if(contactNumberController.text.length >12) {
             submitionError(context, "Your phone number has too many numbers.");
           }else if(contactNumberController.text.length <12){
-    submitionError(context, "Your phone number is missing some digits.");
-
+            submitionError(context, "Your phone number is missing some digits. Make sure you begin with 263*********");
+          }else if (contactNumberController.text.substring(0, 3) != "263"){
+            submitionError(context, "Your phone number must begin with 263*********.");
     } else {
+
             Navigator.push(
                 ctx,
                 MaterialPageRoute(
                   builder: (context) => ClientFormTwo(
-                    dropDownValueAccType: _dropDownValueAccType.toString(),
+                    dropDownValueAccType: _dropDownValueTitle.toString(),
+                    dropDownValueTitle: _dropDownValueTitle.toString(),
                     firstNameController: firstNameController.text,
+                    middleNameController: middleNamesController.text,
                     lastNameController: lastNameController.text,
                     contactNumberController: contactNumberController.text,
                     dobController: _dobController.toString(),
-                    citizenshipController: citizenshipController.text,
+                    token: widget.token,
+
                   ),
                 ));
           }
