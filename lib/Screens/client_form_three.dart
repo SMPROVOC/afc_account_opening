@@ -75,68 +75,74 @@ class _ClientFormThreeState extends State<ClientFormThree> {
           child: Container(
             width: double.maxFinite,
             height: double.maxFinite,
-            child: Padding(
-              padding: EdgeInsets.only(left: 8, bottom: 23, right: 8, top: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    child: Text('Demo', style: TextStyle(color: Colors.transparent),),
-                  ),
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.only(left: 8, bottom: 23, right: 8, top: 5),
+                child: SingleChildScrollView(
+                  reverse: true,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // Expanded(
+                      //   child: Text('Demo', style: TextStyle(color: Colors.transparent),),
+                      // ),
 
-                  Container(
-                    width: 300,
-                    // color: Colors.grey,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        color: Colors.grey),
-                  ),
-                  SizedBox(height: 20),
-                  // userInput(houseNumberController, 'House number / Street',
-                  //     TextInputType.text, Icons.house_outlined),
-                  // userInput(addressLocationController, 'Address location',
-                  //     TextInputType.text, Icons.car_rental_outlined),
-                  // userInput(cityController, 'City', TextInputType.text,
-                  //     Icons.location_city),
-                  userInputMulti(addressLocationController, 'Address', TextInputType.multiline,
-                      Icons.location_city),
-                  userInput(grossIncomeController, 'Gross income',
-                      TextInputType.number, Icons.monetization_on_outlined),
-                  userInput(occupationController, 'Occupation', TextInputType.text,
-                      Icons.work_outline),
-                  userInput(sourceOfIncomeController, 'Source of income', TextInputType.text,
-                      Icons.work_outline),
-                  userInput(emailController, 'Description', TextInputType.text,
-                      Icons.email_outlined),
-                  // SizedBox(
-                  //   height: 10,
-                  // ),
-                  //
-                  // Center(
-                  //   child: AppText(
-                  //     text: 'Page 3 of 4',
-                  //     color: Colors.green,
-                  //   ),
-                  // ),
-
-                    Padding(
-                      padding: EdgeInsets.only(top: 15.0),
-                      child: Center(
-                        child: Wrap(
-                          spacing: 160,
-                          children: [
-                            backButton(
-                                Colors.green, 'Sign In', Colors.white, context),
-                            toFormFourButton(
-                                Colors.green, 'Sign In', Colors.white, context)
-                          ],
-                        ),
+                      Container(
+                        width: 300,
+                        // color: Colors.grey,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            color: Colors.grey),
                       ),
-                    ),
-                  Expanded(
-                    child: Text('Demo', style: TextStyle(color: Colors.transparent),),
+                      SizedBox(height: 20),
+                      // userInput(houseNumberController, 'House number / Street',
+                      //     TextInputType.text, Icons.house_outlined),
+                      // userInput(addressLocationController, 'Address location',
+                      //     TextInputType.text, Icons.car_rental_outlined),
+                      // userInput(cityController, 'City', TextInputType.text,
+                      //     Icons.location_city),
+                      userInputMulti(addressLocationController, 'Address', TextInputType.multiline,
+                          Icons.location_city),
+                      userInput(grossIncomeController, 'Gross income',
+                          TextInputType.number, Icons.monetization_on_outlined),
+                      userInput(occupationController, 'Occupation', TextInputType.text,
+                          Icons.work_outline),
+                      userInput(sourceOfIncomeController, 'Source of income', TextInputType.text,
+                          Icons.work_outline),
+                      userInput(emailController, 'Description', TextInputType.text,
+                          Icons.email_outlined),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      //
+                      // Center(
+                      //   child: AppText(
+                      //     text: 'Page 3 of 4',
+                      //     color: Colors.green,
+                      //   ),
+                      // ),
+
+                        Padding(
+                          padding: EdgeInsets.only(top: 15.0),
+                          child: Center(
+                            child: Wrap(
+                              spacing: 160,
+                              children: [
+                                backButton(
+                                    Colors.green, 'Sign In', Colors.white, context),
+                                toFormFourButton(
+                                    Colors.green, 'Sign In', Colors.white, context),
+                                Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),),
+                              ],
+                            ),
+                          ),
+                        ),
+                      // Expanded(
+                      //   child: Text('Demo', style: TextStyle(color: Colors.transparent),),
+                      // ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),

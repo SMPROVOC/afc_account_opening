@@ -51,112 +51,117 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
         child: Padding(
           padding: EdgeInsets.all(28.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
+          child: SingleChildScrollView(
+            reverse: true,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
 
-              // Container(
-              //   width: 200,
-              //   height: 100,
-              //   decoration: BoxDecoration(
-              //       image: DecorationImage(
-              //           image: AssetImage("assets/images/logo.png"),
-              //           fit: BoxFit.cover)),
-              // ),
-              // SizedBox(
-              //   height: 10,
-              // ),
-              userInput(nameController, 'Name', TextInputType.text,
-                  Icons.verified_user),
-              userInput(emailController, 'Email', TextInputType.text,
-                  Icons.email),
-              userInputObsecured(passwordController, 'Password', TextInputType.text,
-                  Icons.key),
-              userInputObsecured(repasswordController, 'Re-enter Password', TextInputType.text,
-                  Icons.key),
-              Container(
-                width: 300,
-                padding: EdgeInsets.only(left: 16, right: 16),
-                // color: Colors.grey,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    color: Colors.white54),
-                child: DropdownButton(
-                  hint: _dropDownValueBranchCode == null
-                      ? Text('Branch Code', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
-                      : Text(
-                    _dropDownValueBranchCode!,
-                    style: TextStyle(color: Colors.black, fontSize: 18,),
-                  ),
+                // Container(
+                //   width: 200,
+                //   height: 100,
+                //   decoration: BoxDecoration(
+                //       image: DecorationImage(
+                //           image: AssetImage("assets/images/logo.png"),
+                //           fit: BoxFit.cover)),
+                // ),
+                // SizedBox(
+                //   height: 10,
+                // ),
+                userInput(nameController, 'Name', TextInputType.text,
+                    Icons.verified_user),
+                userInput(emailController, 'Email', TextInputType.text,
+                    Icons.email),
+                userInputObsecured(passwordController, 'Password', TextInputType.text,
+                    Icons.key),
+                userInputObsecured(repasswordController, 'Re-enter Password', TextInputType.text,
+                    Icons.key),
+                Container(
+                  width: 300,
+                  padding: EdgeInsets.only(left: 16, right: 16),
+                  // color: Colors.grey,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      color: Colors.white54),
+                  child: DropdownButton(
+                    hint: _dropDownValueBranchCode == null
+                        ? Text('Branch Code', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
+                        : Text(
+                      _dropDownValueBranchCode!,
+                      style: TextStyle(color: Colors.black, fontSize: 18,),
+                    ),
 
-                  isExpanded: true,
-                  iconSize: 30.0,
-                  style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
-                  items: ['NMA'].map(
-                        (val) {
-                      return DropdownMenuItem<String>(
-                        value: val,
-                        child: Text(val),
+                    isExpanded: true,
+                    iconSize: 30.0,
+                    style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
+                    items: ['NMA'].map(
+                          (val) {
+                        return DropdownMenuItem<String>(
+                          value: val,
+                          child: Text(val),
+                        );
+                      },
+                    ).toList(),
+                    onChanged: (val) {
+                      setState(
+                            () {
+                          _dropDownValueBranchCode = val as String?;
+                        },
                       );
                     },
-                  ).toList(),
-                  onChanged: (val) {
-                    setState(
-                          () {
-                        _dropDownValueBranchCode = val as String?;
-                      },
-                    );
-                  },
-                ),
-              ),
-              SizedBox(height: 20,),
-              Container(
-                width: 300,
-                padding: EdgeInsets.only(left: 16, right: 16),
-                // color: Colors.grey,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    color: Colors.white54),
-                child: DropdownButton(
-                  hint: _dropDownValueOrganisation == null
-                      ? Text('Organisation', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
-                      : Text(
-                    _dropDownValueOrganisation!,
-                    style: TextStyle(color: Colors.black, fontSize: 18,),
                   ),
+                ),
+                SizedBox(height: 20,),
+                Container(
+                  width: 300,
+                  padding: EdgeInsets.only(left: 16, right: 16),
+                  // color: Colors.grey,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      color: Colors.white54),
+                  child: DropdownButton(
+                    hint: _dropDownValueOrganisation == null
+                        ? Text('Organisation', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
+                        : Text(
+                      _dropDownValueOrganisation!,
+                      style: TextStyle(color: Colors.black, fontSize: 18,),
+                    ),
 
-                  isExpanded: true,
-                  iconSize: 30.0,
-                  style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
-                  items: ['AFC'].map(
-                        (val) {
-                      return DropdownMenuItem<String>(
-                        value: val,
-                        child: Text(val),
+                    isExpanded: true,
+                    iconSize: 30.0,
+                    style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
+                    items: ['AFC'].map(
+                          (val) {
+                        return DropdownMenuItem<String>(
+                          value: val,
+                          child: Text(val),
+                        );
+                      },
+                    ).toList(),
+                    onChanged: (val) {
+                      setState(
+                            () {
+                          _dropDownValueOrganisation = val as String?;
+                        },
                       );
                     },
-                  ).toList(),
-                  onChanged: (val) {
-                    setState(
-                          () {
-                        _dropDownValueOrganisation = val as String?;
-                      },
-                    );
-                  },
+                  ),
                 ),
-              ),
 
-              checkRegistrationButton(
-                  Colors.green, 'Register', Colors.white, context),
+                checkRegistrationButton(
+                    Colors.green, 'Register', Colors.white, context),
 
-              SizedBox(height: 15,),
+                SizedBox(height: 15,),
 
-              backToLoginButton(
-                  Colors.green, 'Back to login', Colors.white, context),
-            ],
+                backToLoginButton(
+                    Colors.green, 'Back to login', Colors.white, context),
+                Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),),
+              ],
+            ),
           ),
         ),
+
         // child: Card(
         //     child: Center(
         //       child: Icon(
@@ -170,7 +175,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         //       borderRadius: BorderRadius.circular(12.0),
         //     )),
       ),
+
     );
+
   }
 
   Widget checkRegistrationButton(

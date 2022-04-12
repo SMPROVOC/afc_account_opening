@@ -26,6 +26,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   final passwordController = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,37 +36,47 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         height: double.maxFinite,
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/images/pic_2.png"),
+                image: AssetImage("assets/images/girlPic1.jpeg"),
                 fit: BoxFit.cover)),
 
-        child: Padding(
-          padding: EdgeInsets.all(28.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.all(28.0),
+            child: SingleChildScrollView(
+                reverse: true,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
 
-              Container(
-                width: 400,
-                height: 140,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/images/logo.png"),
-                        fit: BoxFit.cover)),
-              ),
-              SizedBox(
-                height: 100,
-              ),
-              userInput(emailController, 'Email', TextInputType.text,
-                  Icons.verified_user),
-              userInputObsecured(passwordController, 'Password', TextInputType.visiblePassword,
-                  Icons.key),
-              loginButton(
-                  Colors.green, 'Sign In', Colors.white, context),
+                  Container(
+                    width: 400,
+                    height: 140,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("assets/images/logo.png"),
+                            fit: BoxFit.cover)),
+                  ),
+                  SizedBox(
+                    height: 100,
+                  ),
+                  userInput(emailController, 'Email', TextInputType.text,
+                      Icons.verified_user),
+                  userInputObsecured(passwordController, 'Password', TextInputType.visiblePassword,
+                      Icons.key),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  loginButton(
+                      Colors.green, 'Sign In', Colors.white, context),
 
-              registerButton(
-                  Colors.green, 'Register', Colors.white, context),
-            ],
+                  registerButton(
+                      Colors.green, 'Register', Colors.white, context),
+
+                  Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),),
+                ],
+              ),
+            ),
           ),
         ),
         // child: Card(
@@ -151,6 +162,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   checkLoginDetails(String email, String password) async {
     print(email);
     print(password);
+
+
     try{
 
     var postUri = Uri.parse("https://payments.agribank.co.zw/api/login");

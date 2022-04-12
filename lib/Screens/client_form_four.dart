@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pb/widgets/text_input.dart';
 import 'package:pb/widgets/responsive_button.dart';
 import 'package:pb/widgets/popup.dart';
@@ -10,7 +11,9 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import '../database/database_helper.dart';
 import 'client_form_one.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ClientFormFour extends StatefulWidget {
   static const routeName = '/client-form-four';
@@ -73,6 +76,9 @@ class _ClientFormFourState extends State<ClientFormFour> {
   PickedFile? _imageSignature;
   final _picker = ImagePicker();
   String? _dropDownValue;
+  static const offlinSaveMsg = SnackBar(
+    content: Text('Record automatically saved offline.'),
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -800,6 +806,73 @@ class _ClientFormFourState extends State<ClientFormFour> {
         middle_name = "";
       }
 
+
+      if ( citizenship == "Zimbabwe"){
+        citizenship = "ZW";
+      }else if (citizenship == "Zambia"){
+        citizenship = "ZM";
+      }else if (citizenship == "South Afr"){
+        citizenship = "ZA";
+      }else if (citizenship == "Yugoslavia"){
+        citizenship = "YU";
+      }else if (citizenship == "Mayotte"){
+        citizenship = "YT";
+      }else if (citizenship == "Yemen"){
+        citizenship = "YE";
+      }else if (citizenship == "Worldwide"){
+        citizenship = "XX";
+      }else if (citizenship == "Silver"){
+        citizenship = "XS";
+      }else if (citizenship == "XPD AND XPT"){
+        citizenship = "XP";
+      }else if (citizenship == "Gold"){
+        citizenship = "XG";
+      }else if (citizenship == "Europa"){
+        citizenship = "XE";
+      }else if (citizenship == "XAU and XAG"){
+        citizenship = "XA";
+      }else if (citizenship == "Samoa"){
+        citizenship = "WS";
+      }else if (citizenship == "Wallis .Futuna"){
+        citizenship = "WF";
+      }else if (citizenship == "Vanuatu"){
+        citizenship = "WF";
+      }else if (citizenship == "Vietnam"){
+        citizenship = "WF";
+      }else if (citizenship == "Virgin Islands"){
+        citizenship = "VI";
+      }else if (citizenship == "Venezuala"){
+        citizenship = "VE";
+      }else if (citizenship == "St. Vincent"){
+        citizenship = "VC";
+      }else if (citizenship == "Vatican"){
+        citizenship = "VA";
+      }else if (citizenship == "Uzbekistan"){
+        citizenship = "UZ";
+      }else if (citizenship == "Uruguay"){
+        citizenship = "UY";
+      }else if (citizenship == "USA"){
+        citizenship = "USA";
+      }else if (citizenship == "US Minor Out Is"){
+        citizenship = "UM";
+      }else if (citizenship == "Uganda"){
+        citizenship = "UG";
+      }else if (citizenship == "Ukraine"){
+        citizenship = "UA";
+      }else if (citizenship == "Tanzania"){
+        citizenship = "TZ";
+      }else if (citizenship == "Taiwan"){
+        citizenship = "TW";
+      }else if (citizenship == "Tuvalu"){
+        citizenship = "TV";
+      }else if (citizenship == "Trinidad Tobago"){
+        citizenship = "TT";
+      }else if (citizenship == "Turkey"){
+        citizenship = "Turkey";
+      }else{
+        citizenship = "not selected";
+      }
+
     DateFormat dateFormat = DateFormat("yyyy-MM-dd");
 
     //String dt = dateFormat.format(date_of_birth);
@@ -862,7 +935,7 @@ class _ClientFormFourState extends State<ClientFormFour> {
 
 
 
-    var streamedResponse = await request.send().timeout(const Duration(seconds: 25));
+    var streamedResponse = await request.send().timeout(const Duration(seconds: 59));
 
     var response = await http.Response.fromStream(streamedResponse);
 
@@ -879,7 +952,7 @@ class _ClientFormFourState extends State<ClientFormFour> {
 
 
     var res = responseData['message'];
-     // var res = 'ok';
+      //var res = 'ok';
 
 
 
@@ -1020,6 +1093,49 @@ class _ClientFormFourState extends State<ClientFormFour> {
     setState(() {
       isLoading = false;
     });
+
+      await  DatabaseHelper.instance.insert({
+      DatabaseHelper.accountType : 'Flexi-cash',
+      DatabaseHelper.title : title,
+      DatabaseHelper.lastName : last_name,
+      DatabaseHelper.firstName : first_name,
+      DatabaseHelper.contactNumber : msisdn,
+      DatabaseHelper.dob : date_of_birth,
+      DatabaseHelper.gender : gender,
+      DatabaseHelper.marritalStatus : marital_status,
+      DatabaseHelper.nationalId : legal,
+      DatabaseHelper.citizenship : citizenship,
+      DatabaseHelper.countryOfBirth : country_of_birth,
+      DatabaseHelper.nextOfKin : contact_person,
+      DatabaseHelper.address : full_address,
+      DatabaseHelper.grossIncome : gross_income,
+      DatabaseHelper.occupation : ocupation,
+      DatabaseHelper.sourceOfIncome : sourceOfIncome,
+      DatabaseHelper.description : description,
+      DatabaseHelper.proPic : 'proPic_$legal.png',
+      DatabaseHelper.passportOrId : 'passportOrId_$legal.png',
+      DatabaseHelper.proofOfResidence : 'proofOfResidence_$legal.png',
+      DatabaseHelper.signature : 'signature_$legal.png',
+
+    });
+
+
+    // getting a directory path for saving
+    Directory directory = await getApplicationDocumentsDirectory();
+    String path = directory.path;
+
+      // copy the profile picture to a new path
+    File(proPicPath).copy('$path/proPic_$legal.png');
+     print(path);
+     File(scannedDocPath).copy('$path/passportOrId_$legal.png');
+    print(path);
+    File(proofOfResidencePath).copy('$path/proofOfResidence_$legal.png');
+    print(path);
+    File(signaturePath).copy('$path/signature_$legal.png');
+    print(path);
+
+    ScaffoldMessenger.of(context).showSnackBar(offlinSaveMsg);
+
     } catch (error) {
     submitionError(context, "Information could not be submitted. Please check your network connection!");
     setState(() {

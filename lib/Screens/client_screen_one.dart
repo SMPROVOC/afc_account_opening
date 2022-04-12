@@ -38,120 +38,128 @@ class _ClientScreenOneState extends State<ClientScreenOne> {
           child: Container(
             width: double.maxFinite,
             height: double.maxFinite,
-            child: Padding(
-              padding: EdgeInsets.only(left: 8, bottom: 23, right: 8, top: 5),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  AppLargeText(
-                    text: 'Flexi-Cash Account',
-                    size: 28,
-                  ),
-                  AppLargeText(
-                    text: 'Requirements',
-                    size: 28,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  AppLargeText(
-                    text: 'Proof Of Residence',
-                    size: 18,
-                  ),
-                  AppText(
-                    text:
-                    '- Proof of residencents in the name of the customer',
-                    color: Colors.black,
-                  ),
-                  AppText(
-                    text:
-                    '- An affidavit from the landlord letter from the employer confirming the residence of the customer',
-                    color: Colors.black,
-                  ),
-                  AppText(
-                    text:
-                    '- Letter fro employer confirming the residence of the customer',
-                    color: Colors.black,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  AppLargeText(
-                    text: 'National ID/Passport/Drivers licencse',
-                    size: 18,
-                  ),
-                  AppText(
-                    text:
-                    '- A valid ID, passport or a drivers license.',
-                    color: Colors.black,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  AppLargeText(
-                    text: 'Recent Photography',
-                    size: 18,
-                  ),
-                  AppText(
-                    text:
-                    '- One recent colour sized password photo (Within 3 months).',
-                    color: Colors.black,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  AppLargeText(
-                    text: 'Initial Deposit',
-                    size: 18,
-                  ),
-                  AppText(
-                    text:
-                    '- An initial deposit of 100 Zimbabwean dollars.',
-                    color: Colors.black,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  AppLargeText(
-                    text: 'Non-Citizens',
-                    size: 18,
-                  ),
-                  AppText(
-                    text:
-                    '- Proof of income, residency permit, copy of passport',
-                    color: Colors.black,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.only(left: 8, bottom: 23, right: 8, top: 5),
+                child: SingleChildScrollView(
+                  reverse: true,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      AppLargeText(
+                        text: 'Flexi-Cash Account',
+                        size: 28,
+                      ),
+                      AppLargeText(
+                        text: 'Requirements',
+                        size: 28,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      AppLargeText(
+                        text: 'Proof Of Residence',
+                        size: 18,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      AppText(
+                        text:
+                        '- Proof of residencents in the name of the customer',
+                        color: Colors.black,
+                      ),
+                      AppText(
+                        text:
+                        '- An affidavit from the landlord letter from the employer confirming the residence of the customer',
+                        color: Colors.black,
+                      ),
+                      AppText(
+                        text:
+                        '- Letter fro employer confirming the residence of the customer',
+                        color: Colors.black,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      AppLargeText(
+                        text: 'National ID/Passport/Drivers licencse',
+                        size: 18,
+                      ),
+                      AppText(
+                        text:
+                        '- A valid ID, passport or a drivers license.',
+                        color: Colors.black,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      AppLargeText(
+                        text: 'Recent Photography',
+                        size: 18,
+                      ),
+                      AppText(
+                        text:
+                        '- One recent colour sized password photo (Within 3 months).',
+                        color: Colors.black,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      AppLargeText(
+                        text: 'Initial Deposit',
+                        size: 18,
+                      ),
+                      AppText(
+                        text:
+                        '- An initial deposit of 100 Zimbabwean dollars.',
+                        color: Colors.black,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      AppLargeText(
+                        text: 'Non-Citizens',
+                        size: 18,
+                      ),
+                      AppText(
+                        text:
+                        '- Proof of income, residency permit, copy of passport',
+                        color: Colors.black,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
 
-                  // toFormOneButton(
-                  //     Colors.green, 'Sign In', Colors.white, context),
+                      // toFormOneButton(
+                      //     Colors.green, 'Sign In', Colors.white, context),
 
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Center(
-                          child: Wrap(
-                            spacing: 160,
-                            children: [
-                              backToWelcomeButton(
-                                  Colors.green, 'Sign In', Colors.white, context, widget.token),
-                              toFormOneButton(
-                                  Colors.green, 'Sign In', Colors.white, context, widget.token),
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Center(
+                              child: Wrap(
+                                spacing: 160,
+                                children: [
+                                  backToWelcomeButton(
+                                      Colors.green, 'Sign In', Colors.white, context, widget.token),
+                                  toFormOneButton(
+                                      Colors.green, 'Sign In', Colors.white, context, widget.token),
 
-                            ],
-                          ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),),
+                    ],
                   ),
-
-                ],
+                ),
               ),
             ),
           ),

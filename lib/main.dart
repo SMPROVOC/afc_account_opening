@@ -9,6 +9,7 @@ import './Screens/client_form_one.dart';
 import './Screens/landing_screen.dart';
 import 'package:flutter/services.dart';
 
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([

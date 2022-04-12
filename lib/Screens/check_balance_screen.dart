@@ -53,10 +53,10 @@ class _CheckBalanceScreen extends State<CheckBalanceScreen> {
                         image: AssetImage("assets/images/logo.png"),
                         fit: BoxFit.cover)),
               ),
+
               SizedBox(
                 height: 100,
               ),
-
 
               Container(
                 child: Column(

@@ -59,168 +59,174 @@ class _ClientFormOneState extends State<ClientFormOne> {
           child: Container(
             width: double.maxFinite,
             height: double.maxFinite,
-            child: Padding(
-              padding: EdgeInsets.only(left: 8, bottom: 23, right: 8, top: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    child: Text('Demo', style: TextStyle(color: Colors.transparent),),
-                  ),
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.only(left: 8, bottom: 23, right: 8, top: 5),
+                child: SingleChildScrollView(
+                  reverse: true,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // Expanded(
+                      //   child: Text('Demo', style: TextStyle(color: Colors.transparent),),
+                      // ),
 
-                  Container(
-                    width: 300,
-                    padding: EdgeInsets.only(left: 16, right: 16),
-                    // color: Colors.grey,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        color: Colors.white54),
-                    child: DropdownButton(
-                      hint: _dropDownValueAccType == null
-                          ? Text('Account Type', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
-                          : Text(
-                              _dropDownValueAccType!,
-                              style: TextStyle(color: Colors.black, fontSize: 18,),
-                            ),
+                      Container(
+                        width: 300,
+                        padding: EdgeInsets.only(left: 16, right: 16),
+                        // color: Colors.grey,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            color: Colors.white54),
+                        child: DropdownButton(
+                          hint: _dropDownValueAccType == null
+                              ? Text('Account Type', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
+                              : Text(
+                                  _dropDownValueAccType!,
+                                  style: TextStyle(color: Colors.black, fontSize: 18,),
+                                ),
 
-                      isExpanded: true,
-                      iconSize: 30.0,
-                      style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
-                      items: ['Flexi-Cash account'].map(
-                        (val) {
-                          return DropdownMenuItem<String>(
-                            value: val,
-                            child: Text(val),
-                          );
-                        },
-                      ).toList(),
-                      onChanged: (val) {
-                        setState(
-                          () {
-                            _dropDownValueAccType = val as String?;
+                          isExpanded: true,
+                          iconSize: 30.0,
+                          style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
+                          items: ['Flexi-Cash account'].map(
+                            (val) {
+                              return DropdownMenuItem<String>(
+                                value: val,
+                                child: Text(val),
+                              );
+                            },
+                          ).toList(),
+                          onChanged: (val) {
+                            setState(
+                              () {
+                                _dropDownValueAccType = val as String?;
+                              },
+                            );
                           },
-                        );
-                      },
-                    ),
-                  ),
-
-                  SizedBox(height: 20,),
-
-                  Container(
-                    width: 300,
-                    padding: EdgeInsets.only(left: 16, right: 16),
-                    // color: Colors.grey,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        color: Colors.white70),
-                    child: DropdownButton(
-                      hint: _dropDownValueTitle == null
-                          ? Text('Title', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
-                          : Text(
-                        _dropDownValueTitle!,
-                        style: TextStyle(color: Colors.black, fontSize: 18,),
+                        ),
                       ),
 
-                      isExpanded: true,
-                      iconSize: 30.0,
-                      style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
-                      items: ['Mr', 'Mrs', 'Ms', 'Dr', 'Prof'].map(
-                            (val) {
-                          return DropdownMenuItem<String>(
-                            value: val,
-                            child: Text(val),
-                          );
-                        },
-                      ).toList(),
-                      onChanged: (val) {
-                        setState(
-                              () {
-                            _dropDownValueTitle = val as String?;
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                  SizedBox(height: 20),
+                      SizedBox(height: 20,),
 
-                  userInput(lastNameController, 'Last name (Mukodzi)', TextInputType.text,
-                      Icons.supervised_user_circle),
-                  userInput(middleNamesController, 'Middle names (Optional)', TextInputType.text,
-                      Icons.supervised_user_circle),
-                  userInput(firstNameController, 'First name (Kudzai)',
-                      TextInputType.text, Icons.supervised_user_circle),
-
-                  userInput(contactNumberController, 'Contact number (263***)',
-                      TextInputType.number, Icons.call),
-
-                  ElevatedButton(
-                    onPressed: () async {
-                      DateTime? newDate = await showDatePicker(
-                          context: context,
-                          initialDate: date,
-                          firstDate: DateTime(1910),
-                          lastDate: DateTime(2300));
-
-                      //if (newDate == null) return;
-
-                      if (newDate == null) return;
-
-                      setState(() => date = newDate);
-
-                      setState(() => _dobController =  newDate);
-                      // setState(() => dk = formatter.format(newDate).toString());
-                      setState(() => dk = "${newDate.year}-${newDate.month}-${newDate.day}");
-                    },
-                    child: Text(dk == null ? 'Select date of birth' : dk.toString(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                    style: ElevatedButton.styleFrom(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 45, vertical: 16),
-
-                      primary: Colors.white70,
-                      onPrimary: Colors.black,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  // userInput(citizenshipController, 'Citizenship',
-                  //     TextInputType.text, Icons.verified_user),
-                  // SizedBox(
-                  //   height: 20,
-                  // ),
-                  // Center(
-                  //   child: AppText(
-                  //     text: 'Page 1 of 4',
-                  //     color: Colors.green,
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 20,
-                  // ),
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Center(
-                          child: Wrap(
-                            spacing: 160,
-                            children: [
-                              toRequirementsButton(
-                                  Colors.green, 'Sign In', Colors.white, context, widget.token),
-                              toFormTwoButton(
-                                  Colors.green, 'Sign In', Colors.white, context)
-                            ],
+                      Container(
+                        width: 300,
+                        padding: EdgeInsets.only(left: 16, right: 16),
+                        // color: Colors.grey,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            color: Colors.white70),
+                        child: DropdownButton(
+                          hint: _dropDownValueTitle == null
+                              ? Text('Title', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
+                              : Text(
+                            _dropDownValueTitle!,
+                            style: TextStyle(color: Colors.black, fontSize: 18,),
                           ),
+
+                          isExpanded: true,
+                          iconSize: 30.0,
+                          style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
+                          items: ['Mr', 'Mrs', 'Ms', 'Dr', 'Prof'].map(
+                                (val) {
+                              return DropdownMenuItem<String>(
+                                value: val,
+                                child: Text(val),
+                              );
+                            },
+                          ).toList(),
+                          onChanged: (val) {
+                            setState(
+                                  () {
+                                _dropDownValueTitle = val as String?;
+                              },
+                            );
+                          },
                         ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(height: 20),
+
+                      userInput(lastNameController, 'Last name (Mukodzi)', TextInputType.text,
+                          Icons.supervised_user_circle),
+                      userInput(middleNamesController, 'Middle names (Optional)', TextInputType.text,
+                          Icons.supervised_user_circle),
+                      userInput(firstNameController, 'First name (Kudzai)',
+                          TextInputType.text, Icons.supervised_user_circle),
+
+                      userInput(contactNumberController, 'Contact number (263***)',
+                          TextInputType.number, Icons.call),
+
+                      ElevatedButton(
+                        onPressed: () async {
+                          DateTime? newDate = await showDatePicker(
+                              context: context,
+                              initialDate: date,
+                              firstDate: DateTime(1910),
+                              lastDate: DateTime(2300));
+
+                          //if (newDate == null) return;
+
+                          if (newDate == null) return;
+
+                          setState(() => date = newDate);
+
+                          setState(() => _dobController =  newDate);
+                          // setState(() => dk = formatter.format(newDate).toString());
+                          setState(() => dk = "${newDate.year}-${newDate.month}-${newDate.day}");
+                        },
+                        child: Text(dk == null ? 'Select date of birth' : dk.toString(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        style: ElevatedButton.styleFrom(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 45, vertical: 16),
+
+                          primary: Colors.white70,
+                          onPrimary: Colors.black,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      // userInput(citizenshipController, 'Citizenship',
+                      //     TextInputType.text, Icons.verified_user),
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
+                      // Center(
+                      //   child: AppText(
+                      //     text: 'Page 1 of 4',
+                      //     color: Colors.green,
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Center(
+                              child: Wrap(
+                                spacing: 160,
+                                children: [
+                                  toRequirementsButton(
+                                      Colors.green, 'Sign In', Colors.white, context, widget.token),
+                                  toFormTwoButton(
+                                      Colors.green, 'Sign In', Colors.white, context)
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Expanded(
+                      //   child: Text('Demo', style: TextStyle(color: Colors.transparent),),
+                      // ),
+                      Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),),
+                    ],
                   ),
-                  Expanded(
-                    child: Text('Demo', style: TextStyle(color: Colors.transparent),),
-                  ),
-                ],
+                ),
               ),
             ),
           ),

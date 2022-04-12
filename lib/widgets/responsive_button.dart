@@ -4,10 +4,14 @@ import 'package:pb/Screens/client_screen_one.dart';
 import 'package:pb/Screens/client_form_one.dart';
 import 'package:pb/Screens/coming_soon_screen.dart';
 import 'package:pb/Screens/landing_screen.dart';
+import 'package:pb/Screens/offline_upload_screen.dart';
 import 'package:pb/Screens/welcome_screen.dart';
 import 'package:pb/Screens/overdraft_screen_one.dart';
 import 'package:pb/Screens/client_form_three.dart';
 import 'package:pb/Screens/client_form_four.dart';
+
+import '../Screens/additional_uploads_screen.dart';
+import '../Screens/additional_uploads_two_screen.dart';
 
 class ResponsiveButton extends StatelessWidget {
   bool? isResponsive;
@@ -214,6 +218,58 @@ Widget landingButtonCheckBalance(
 }
 
 
+Widget landingButtonUploadAdditionals(
+    Color buttonColor, String title, Color textColor, BuildContext ctx, String token) {
+  return Container(
+    height: 80,
+    width: 100,
+    // color: Colors.red,
+    padding: const EdgeInsets.only(top: 2, left: 2, right: 4),
+    child: RaisedButton(
+      elevation: 0,
+      shape: CircleBorder(),
+      color: buttonColor,
+      onPressed: () {
+        Navigator.of(ctx).pushReplacement(MaterialPageRoute(builder: (_) {
+          return AdditionalUploadScreen(token: token,);
+        }));
+      },
+      child: Icon(
+        Icons.upload,
+        size: 60,
+        color: Colors.white70,
+      ),
+    ),
+  );
+}
+
+Widget landingButtonOfflineUpload(
+    Color buttonColor, String title, Color textColor, BuildContext ctx, String token) {
+  return Container(
+    height: 80,
+    width: 100,
+    // color: Colors.red,
+    padding: const EdgeInsets.only(top: 2, left: 2, right: 4),
+    child: RaisedButton(
+      elevation: 0,
+      shape: CircleBorder(),
+      color: buttonColor,
+      onPressed: () {
+        Navigator.of(ctx).pushReplacement(MaterialPageRoute(builder: (_) {
+          return OfflineUploadScreen(token: token,);
+        }));
+      },
+      child: Icon(
+        Icons.offline_bolt,
+        size: 60,
+        color: Colors.white70,
+      ),
+    ),
+  );
+}
+
+
+
 
 
 // Widget toFormTwoButton(Color buttonColor, String title, Color textColor,
@@ -376,6 +432,8 @@ Widget backToLoginButton(
     ),
   );
 }
+
+
 
 
 // Widget sendInfoButton(

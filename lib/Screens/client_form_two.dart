@@ -44,9 +44,10 @@ class _ClientFormTwoState extends State<ClientFormTwo> {
   final nationalIdController = TextEditingController();
   final nextOfKeenController = TextEditingController();
   final countryOfBirthController = TextEditingController();
-  final citizenshipController = TextEditingController();
+  //final citizenshipController = TextEditingController();
   String? _dropDownValueMerritalStatus;
   String? _dropDownValueGender;
+  String? _dropDownValueCitizenship;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,137 +67,182 @@ class _ClientFormTwoState extends State<ClientFormTwo> {
             width: double.maxFinite,
             height: double.maxFinite,
             // color: Colors.amber,
-            child: Padding(
-              padding: EdgeInsets.only(left: 8, bottom: 23, right: 8, top: 5),
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.only(left: 8, bottom: 23, right: 8, top: 5),
 
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    child: Text('Demo', style: TextStyle(color: Colors.transparent),),
-                  ),
+                child: SingleChildScrollView(
+                  reverse: true,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // Expanded(
+                      //   child: Text('Demo', style: TextStyle(color: Colors.transparent),),
+                      // ),
 
-                  Container(
-                    width: 300,
-                    padding: EdgeInsets.only(left: 16, right: 16),
-                    // color: Colors.grey,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        color: Colors.white70),
-                    child: DropdownButton(
-                      hint: _dropDownValueGender == null
-                          ? Text('Gender')
-                          : Text(
-                              _dropDownValueGender!,
-                              style:  TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                      isExpanded: true,
-                      iconSize: 30.0,
-                      style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
-                      items: ['Male', 'Female'].map(
-                        (val) {
-                          return DropdownMenuItem<String>(
-                            value: val,
-                            child: Text(val),
-                          );
-                        },
-                      ).toList(),
-                      onChanged: (val) {
-                        setState(
-                          () {
-                            _dropDownValueGender = val as String?;
+                      Container(
+                        width: 300,
+                        padding: EdgeInsets.only(left: 16, right: 16),
+                        // color: Colors.grey,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            color: Colors.white70),
+                        child: DropdownButton(
+                          hint: _dropDownValueGender == null
+                              ? Text('Gender')
+                              : Text(
+                                  _dropDownValueGender!,
+                                  style:  TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                                ),
+                          isExpanded: true,
+                          iconSize: 30.0,
+                          style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
+                          items: ['Male', 'Female'].map(
+                            (val) {
+                              return DropdownMenuItem<String>(
+                                value: val,
+                                child: Text(val),
+                              );
+                            },
+                          ).toList(),
+                          onChanged: (val) {
+                            setState(
+                              () {
+                                _dropDownValueGender = val as String?;
+                              },
+                            );
                           },
-                        );
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    width: 300,
-                    padding: EdgeInsets.only(left: 16, right: 16),
-                    // color: Colors.grey,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        color: Colors.white70),
-                    child: DropdownButton(
-                      hint: _dropDownValueMerritalStatus == null
-                          ? Text('Marrital status')
-                          : Text(
-                              _dropDownValueMerritalStatus!,
-                              style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                      isExpanded: true,
-                      iconSize: 30.0,
-                      style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
-                      items: ['Married', 'Single', 'Divorced'].map(
-                        (val) {
-                          return DropdownMenuItem<String>(
-                            value: val,
-                            child: Text(val),
-                          );
-                        },
-                      ).toList(),
-                      onChanged: (val) {
-                        setState(
-                          () {
-                            _dropDownValueMerritalStatus = val as String?;
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  userInput(nationalIdController, 'National ID (1234567A89)',
-                      TextInputType.text, Icons.numbers_outlined),
-                  userInput(citizenshipController, 'citizenship',
-                      TextInputType.text, Icons.person),
-                  userInput(countryOfBirthController, 'country of birth',
-                      TextInputType.text, Icons.house_outlined),
-                  userInput(nextOfKeenController, 'Next of kin',
-                      TextInputType.text, Icons.child_care_outlined),
-
-
-                  SizedBox(
-                    height: 20,
-                  ),
-                  //
-                  // dropDownValueAccType,
-                  // dropDownValueTitle,
-                  // firstNameController,
-                  // lastNameController,
-                  // contactNumberController,
-                  // dobController,
-                  Center(
-                    child: AppText(
-                      text: 'Page 2 of 3',
-                      color: Colors.green,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-
-
-                  Expanded(
-
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 5.0),
-                      child: Center(
-                        child: Wrap(
-                          spacing: 150,
-                          children: [
-                            backButton(
-                                Colors.green, 'Sign In', Colors.white, context),
-                            toFormThreeButton(
-                                Colors.green, 'Sign In', Colors.white, context)
-                          ],
                         ),
                       ),
-                    ),
-                  )
-                ],
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        width: 300,
+                        padding: EdgeInsets.only(left: 16, right: 16),
+                        // color: Colors.grey,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            color: Colors.white70),
+                        child: DropdownButton(
+                          hint: _dropDownValueMerritalStatus == null
+                              ? Text('Marrital status')
+                              : Text(
+                                  _dropDownValueMerritalStatus!,
+                                  style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                                ),
+                          isExpanded: true,
+                          iconSize: 30.0,
+                          style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
+                          items: ['Married', 'Single', 'Divorced'].map(
+                            (val) {
+                              return DropdownMenuItem<String>(
+                                value: val,
+                                child: Text(val),
+                              );
+                            },
+                          ).toList(),
+                          onChanged: (val) {
+                            setState(
+                              () {
+                                _dropDownValueMerritalStatus = val as String?;
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      userInput(nationalIdController, 'National ID (1234567A89)',
+                          TextInputType.text, Icons.numbers_outlined),
+                      // userInput(citizenshipController, 'f',
+                      //     TextInputType.text, Icons.person),
+                      Container(
+                        width: 300,
+                        padding: EdgeInsets.only(left: 16, right: 16),
+                        // color: Colors.grey,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            color: Colors.white70),
+                        child: DropdownButton(
+                          hint: _dropDownValueCitizenship == null
+                              ? Text('Citizenship')
+                              : Text(
+                            _dropDownValueCitizenship!,
+                            style:  TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          isExpanded: true,
+                          iconSize: 30.0,
+                          style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
+                          items: ['Zimbabwe','Zambia','South Afr','Yugoslavia',
+                            'Mayotte','Yemen','Worldwide','Silver','XPD AND XPT',
+                            'Gold','Europa','XAU and XAG','Samoa','Wallis .Futuna',
+                            'Vanuatu','Vietnam','Virgin Islands','Virgin Islands',
+                            'Venezuala','St. Vincent','Vatican','Uzbekistan',
+                            'Uruguay','USA','US Minor Out Is','Uganda',
+                            'Ukraine','Tanzania','Taiwan','Tuvalu',
+                            'Trinidad Tobago','Turkey'].map(
+                                (val) {
+                              return DropdownMenuItem<String>(
+                                value: val,
+                                child: Text(val),
+                              );
+                            },
+                          ).toList(),
+                          onChanged: (val) {
+                            setState(
+                                  () {
+                                    _dropDownValueCitizenship = val as String?;
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 20,),
+                      userInput(countryOfBirthController, 'country of birth',
+                          TextInputType.text, Icons.house_outlined),
+                      userInput(nextOfKeenController, 'Next of kin',
+                          TextInputType.text, Icons.child_care_outlined),
+
+
+                      SizedBox(
+                        height: 20,
+                      ),
+                      //
+                      // dropDownValueAccType,
+                      // dropDownValueTitle,
+                      // firstNameController,
+                      // lastNameController,
+                      // contactNumberController,
+                      // dobController,
+                      Center(
+                        child: AppText(
+                          text: 'Page 2 of 3',
+                          color: Colors.green,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+
+                        Padding(
+                          padding: EdgeInsets.only(top: 5.0),
+                          child: Center(
+                            child: Wrap(
+                              spacing: 150,
+                              children: [
+                                backButton(
+                                    Colors.green, 'Sign In', Colors.white, context),
+                                toFormThreeButton(
+                                    Colors.green, 'Sign In', Colors.white, context)
+                              ],
+                            ),
+                          ),
+                        ),
+
+                      Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
@@ -253,11 +299,26 @@ class _ClientFormTwoState extends State<ClientFormTwo> {
             submitionError(context, 'Please select your marrital status');
           }
 
+          try {
+            if (_dropDownValueCitizenship == null) {
+              submitionError(context, 'Please select your citizenship');
+              check = 'null';
+            }
+          } on Exception catch (exception) {
+            check = 'null';
+            // only executed if error is of type Exception
+            submitionError(context, 'Please select your citizenship');
+          } catch (error) {
+            check = 'null';
+            // executed for errors of all types other than Exception
+            submitionError(context, 'Please select your citizenship');
+          }
+
           if (check == 'ok') {
             if (nationalIdController.text.isEmpty) {
               submitionError(context, 'Please input your national ID');
             } else if (nextOfKeenController.text.isEmpty) {
-              submitionError(context, 'Please input your next of keen');
+              submitionError(context, 'Please input your next of kin');
             } else if (countryOfBirthController.text.isEmpty) {
               submitionError(context, 'Please input your country of birth');
             } else {
@@ -272,7 +333,7 @@ class _ClientFormTwoState extends State<ClientFormTwo> {
                       lastNameController: widget.lastNameController,
                       contactNumberController: widget.contactNumberController,
                       dobController: widget.dobController.toString(),
-                      citizenshipController: citizenshipController.text,
+                      citizenshipController: _dropDownValueCitizenship.toString(),
                       gender: _dropDownValueGender.toString(),
                       marritalStatus: _dropDownValueMerritalStatus.toString(),
                       nationalId: nationalIdController.text,
